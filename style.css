@@ -1,0 +1,404 @@
+/* =========================================
+   1. GLOBAL RESET & BASICS (إعدادات أساسية)
+   ========================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --social-color: #333;
+  --social-hover: #000;
+  --social-size: 18px;
+  --social-gap: 20px;
+  --social-transition: 0.3s ease;
+}
+/* تنسيق الحاوية الكبرى */
+.footer-social-wrapper {
+    padding: 20px 0;
+}
+
+/* تنسيق رابط الملف الشخصي */
+.profile-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.profile-link:hover {
+    color: #2e5233; /* لون العائلة الأخضر */
+}
+
+.profile-img-wrapper img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+.arrow-icon {
+    width: 12px;
+    height: auto;
+}
+
+/* ضبط أحجام أيقونات السوشيال ميديا لتناسب النص */
+.social-links-minimal .icon-link {
+    font-size: 20px;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+/* تأثيرات الهوفر (كما طلبنا سابقاً) */
+.icon-link.yt:hover { color: #FF0000; }
+.icon-link.snap:hover { color: #FFFC00; text-shadow: 0 0 1px #000; }
+.icon-link.fb:hover { color: #3b5998; }
+.icon-link.tw:hover { color: #1da1f2; }
+.icon-link.insta:hover { color: #e4405f; }
+.social-links-minimal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--social-gap);
+  padding: 10px 20px;
+}
+
+.icon-link {
+  display: inline-flex;
+  text-decoration: none;
+  color: var(--social-color);
+  font-size: var(--social-size);
+  transition: all var(--social-transition);
+}
+
+.icon-link:hover {
+  color: var(--social-hover);
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden; /* لمنع ظهور شريط التمرير العرضي */
+}
+
+body {
+  font-family: "FFShamelFamily", sans-serif;
+  font-size: 14px;
+  direction: rtl;
+  /* إعدادات الفوتر الثابت */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+}
+:root {
+  --social-size: 45px;
+  --social-font-size: 20px;
+  --social-gap: 20px;
+  --social-transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --social-bg-default: #f4f4f4;
+  --social-color-default: #555;
+  --social-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--social-gap);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--social-size);
+  height: var(--social-size);
+  text-decoration: none;
+  font-size: var(--social-font-size);
+  color: var(--social-color-default);
+  background-color: var(--social-bg-default);
+  border-radius: 50%;
+  transition: all var(--social-transition);
+  position: relative;
+}
+
+.social-icon:hover {
+  color: #fff;
+  transform: translateY(-5px);
+  box-shadow: var(--social-hover-shadow);
+}
+
+.social-icon.fb:hover { background-color: #3b5998; }
+.social-icon.tw:hover { background-color: #1da1f2; }
+.social-icon.insta:hover { background-color: #e4405f; }
+.social-icon.lnk:hover { background-color: #0077b5; }
+
+.social-icon:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 3px;
+}
+/* عناصر عامة */
+a { text-decoration: none; color: #333; transition: 0.3s ease; }
+ul { list-style-type: none; }
+img { vertical-align: middle; max-width: 100%; height: auto; } /* صور متجاوبة */
+button, select, input { font-family: inherit; }
+
+/* كلاسات مساعدة */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-white { color: #fff !important; }
+.position-relative { position: relative; }
+.d-inline-block { display: inline-block; }
+
+/* =========================================
+   2. FONTS (الخطوط)
+   ========================================= */
+@font-face {
+  font-family: "FFShamelFamily";
+  src: url("../fonts/FFShamelFamily-SansOneBook.ttf") format("woff2"),
+       url("../fonts/FFShamelFamily-SansOneBold.ttf") format("truetype");
+}
+
+/* =========================================
+   3. COMPONENTS (العناصر المتكررة)
+   ========================================= */
+
+/* الأزرار */
+.btn-custom {
+  display: inline-block;
+  background-color: #1f3f2a;
+  color: #fff;
+  padding: 12px 40px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.btn-custom:hover {
+  background-color: #16301f;
+  color: #fff;
+}
+
+/* النماذج (Forms) */
+form label { font-size: 14px; margin-bottom: 5px; display: block; }
+form input {
+  width: 100%; /* يأخذ العرض المتاح */
+  max-width: 250px; /* لا يزيد عن 250 بكسل */
+  display: inline-block;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 8px 10px;
+  text-align: right;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========================================
+   4. LAYOUT SECTIONS (أقسام الصفحة)
+   ========================================= */
+
+/* الشريط العلوي */
+.bar {
+  background-color: #2e5233;
+  text-align: center;
+  color: #fff;
+  padding: 10px 0;
+}
+
+/* الهيدر */
+.header-right li { margin: 0 5px; }
+.header-left img[alt="profile"] {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+/* Hero Section (الجزء الرئيسي) */
+.hero-home, .register {
+  min-height: calc(100vh - 108px); /* ارتفاع الشاشة بالكامل ناقص الهيدر */
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;       /* لتوسيط المحتوى */
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-home { background-image: url("../images/landing_01.png"); }
+.register { background-image: url("../images/landing_02.png"); color: #fff; }
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: #1f3f2a;
+  width: 100%;
+  padding: 20px; /* حماية المحتوى من الحواف في الموبايل */
+}
+.register .hero-content { color: #fff; }
+
+.hero-content h2 { font-size: 48px; font-weight: 700; margin-bottom: 15px; }
+.hero-content p { font-size: 24px; margin-bottom: 25px; }
+
+/* تخصيص صفحة التسجيل */
+.register .hero-content h2 { font-size: 30px; }
+.register .hero-content p { font-size: 18px; }
+
+/* =========================================
+   5. TREE FAMILY CARD (شجرة العائلة)
+   ========================================= */
+.tree-family {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 16px 20px;
+  width: 170px; /* عرض ثابت للكارت الواحد */
+  margin: 10px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  cursor: pointer;
+}
+.tree-family h4 { margin-top: 10px; font-size: 14px; color: #222; }
+.tree-family .info {
+  position: absolute; bottom: 8px; left: 8px;
+  width: 18px; height: 18px;
+  border-radius: 50%; border: 1px solid #aaa;
+  font-size: 12px; line-height: 18px;
+  text-align: center; color: #555;
+}
+
+/* خطوط الشجرة SVG */
+svg { position: absolute; left: 50%; transform: translateX(-50%); pointer-events: none; }
+path { fill: none; stroke: #7a5a3a; stroke-width: 1; stroke-linecap: round; }
+.lines::after {
+  content: ""; position: absolute; top: 100%; right: 0;
+  height: 100%; width: 100%;
+  background: url(../images/lines.png) center center/cover;
+  pointer-events: none;
+}
+
+/* =========================================
+   6. HELPERS & CONTAINERS (تحسينات العرض)
+   ========================================= */
+.mt-188 { margin-top: 188px; }
+
+/* تعديل الكلاس ah ليكون مرناً */
+.ah {
+  width: 100%;      /* عرض كامل للموبايل */
+  max-width: 884px; /* أقصى عرض للكمبيوتر */
+  margin: auto;
+  padding: 0 15px;  /* هوامش جانبية للحماية */
+}
+
+/* =========================================
+   7. POPUP SYSTEM (النوافذ المنبثقة)
+   ========================================= */
+.popup {
+  position: fixed;
+  inset: 0; /* بديل حديث لـ top/left/right/bottom: 0 */
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0; visibility: hidden;
+  transition: 0.5s ease-in-out;
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+}
+.popup.active { opacity: 1; visibility: visible; }
+
+.popup .popup-inner {
+  width: 90%;          /* 90% من عرض الموبايل */
+  max-width: 750px;    /* 750px للكمبيوتر */
+  background-color: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: 0.4s;
+  max-height: 90vh;    /* لمنع خروج النافذة عن الشاشة طولياً */
+  overflow-y: auto;    /* سكرول داخلي لو المحتوى طويل */
+}
+.popup.active .popup-inner { transform: scale(1); }
+
+.popup .popup-inner .popup-head { padding: 15px; background-color: #16301f; color: #fff; }
+.popup .popup-inner .popup-body { padding: 30px; }
+.popup .popup-inner .popup-body ul li { font-size: 16px; margin-bottom: 10px; }
+
+/* =========================================
+   8. ANIMATIONS (الحركات)
+   ========================================= */
+.show-one, .show-two {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  width: 280px;
+  padding: 15px;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.show-one.active, .show-two.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* =========================================
+   9. FOOTER (التذييل)
+   ========================================= */
+footer {
+  margin-top: auto; /* يجعل الفوتر دائماً في الأسفل */
+  width: 100%;
+  background-color: #f8f9fa; /* لون افتراضي خفيف */
+  padding: 20px 0;
+}
+
+/* =========================================
+   10. MEDIA QUERIES (التجاوب مع الشاشات)
+   ========================================= */
+
+/* للأجهزة اللوحية والموبايل (أقل من 992px) */
+@media screen and (max-width: 992px) {
+  .mt-188 { margin-top: 100px; }
+  .hero-content h2 { font-size: 36px; }
+}
+
+/* للموبايل فقط (أقل من 768px) */
+@media screen and (max-width: 768px) {
+  /* تصغير الخطوط الكبيرة */
+  .hero-content h2 { font-size: 28px; }
+  .hero-content p { font-size: 18px; }
+
+  /* توسيط عناصر الهيدر */
+  .header-right, .header-left {
+    justify-content: center !important;
+    margin-bottom: 15px;
+  }
+
+  /* جعل الأزرار تأخذ عرض الشاشة لسهولة الضغط */
+  .btn-custom { width: 100%; margin-top: 10px; }
+
+  /* تقليل الهوامش الكبيرة */
+  .mt-188 { margin-top: 50px; }
+  
+  /* تحسين عرض البوب أب */
+  .popup .popup-inner .popup-body { padding: 20px; }
+  
+  /* تحسين حقول الإدخال */
+  form input { max-width: 100%; }
+}
