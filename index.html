@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Tree</title>
+    <link rel="stylesheet" href="css/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* التعديلات الأساسية لحل مشكلة الفراغ */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* دفع الفوتر للأسفل تماماً */
+        .hero-home {
+            flex: 1;
+            /* نستخدم min-height بدل height الثابت لتجنب مشاكل التصميم */
+            min-height: 400px; 
+        }
+
+        /* تنسيق الفوتر باللون الأبيض */
+        footer {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 15px 0;
+            text-align: center;
+            border-top: 1px solid #eeeeee;
+            font-size: 14px;
+        }
+
+        /* الحفاظ على تنسيق القوائم كما هي */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .header-left a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <header class="py-3">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-6">
+                    <ul class="header-right d-flex align-items-center">
+                        <li><a href="#"><img src="images/facebook.png" alt=""></a></li>
+                        <li class="ms-2"><a href="#"><img src="images/youtube.png" alt=""></a></li>
+                        <li class="ms-2"><a href="#"><img src="images/twitter.png" alt=""></a></li>
+                        <li class="ms-2"><a href="#"><img src="images/snap.png" alt=""></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="header-left justify-content-end d-flex align-items-center">
+                        <li>
+                            <a href="#">
+                                <img src="images/arrow-down.png" alt="" />
+                                Al-khamis 
+                                <span> <img src="images/profile.png" alt="profile" /></span>
+                            </a>
+                        </li>
+                        <li class="mx-3">
+                            <a href="#"><img src="images/info-circle.png" alt="info-circle" /></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="images/notification.png" alt="notification" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bar py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center mx-auto">
+                    <h3>عائلة الخميس</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero-home d-flex align-items-center justify-content-center">
+        <div class="hero-content text-center">
+            <h2>عائلة الخميس</h2>
+            <p>تاريخ يُكتب بالأسماء</p>
+            <a href="register.html" class="btn btn-custom">تخطّي</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">جميع الحقوق محفوظة لدي عائلة الخميس 2026@</p>
+        </div>
+    </footer>
+<script>
+        // ننتظر حتى تكتمل تحميل الصفحة
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var loader = document.getElementById('loading-screen');
+                // جعل الشفافية 0 (اختفاء تدريجي)
+                loader.style.opacity = '0';
+                
+                // بعد ثانية واحدة (مدة الاختفاء) نقوم بحذف العنصر تماماً لتتمكن من الضغط على الأزرار تحته
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 1000);
+                
+            }, 3000); // 3000 تعني الانتظار 3 ثواني قبل بدء الاختفاء
+        });
+    </script>
+</body>
+</html>

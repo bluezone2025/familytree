@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عائلة الخميس</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --header-bg: #294632;
+            --bg-color: #f7f9f7;
+            --line-color: #8c6b5d;
+        }
+
+        /* تنسيق الصفحة ومنع الفراغ الأبيض */
+        html, body { height: 100%; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* الهيدر العلوي */
+        .my-top-bar {
+            background-color: #ffffff; border-bottom: 1px solid #e5e5e5;
+            padding: 8px 20px; display: flex; align-items: center;
+            justify-content: space-between; direction: ltr;
+        }
+        .user-part { display: flex; align-items: center; gap: 8px; color: #333; font-weight: bold; cursor: pointer; }
+        .user-part img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+        .icons-part { display: flex; align-items: center; gap: 12px; }
+        .icons-part a { color: #555; font-size: 16px; text-decoration: none; }
+
+        /* البار الأخضر (تم تعديل النص هنا) */
+        .header-main { background-color: var(--header-bg); color: white; padding: 15px; text-align: center; }
+        .header-main h1 { margin: 0; font-size: 22px; font-weight: 700; }
+
+        /* حاوية الشجرة */
+        .tree-container {
+            flex: 1; width: 100%; overflow: auto; text-align: center;
+            padding: 50px 0; cursor: grab; display: flex; justify-content: center;
+        }
+        .tree { display: inline-table; margin: 0 auto; direction: ltr; }
+        .tree ul { padding-top: 40px; position: relative; display: none; justify-content: center; transition: all 0.5s ease; }
+        
+        /* إظهار الفروع بالأنميشن */
+        .tree ul.show-branch { display: flex; animation: slideIn 0.5s ease-out forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .tree li { float: left; text-align: center; list-style-type: none; position: relative; padding: 40px 10px 0 10px; }
+        
+        /* رسم الخطوط البنية */
+        .tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--line-color); width: 50%; height: 40px; }
+        .tree li::after { right: auto; left: 50%; border-left: 2px solid var(--line-color); }
+        .tree li:only-child::after, .tree li:only-child::before { display: none; }
+        .tree li:only-child { padding-top: 0; }
+        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+        .tree li:last-child::before { border-right: 2px solid var(--line-color); border-radius: 0 20px 0 0; }
+        .tree li:first-child::after { border-radius: 20px 0 0 0; }
+        .tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid var(--line-color); height: 40px; transform: translateX(-50%); }
+
+        /* تصميم الدائرة */
+        .member { display: inline-block; position: relative; z-index: 10; cursor: pointer; }
+        .img-box {
+            width: 85px; height: 85px; background: white; border-radius: 50%;
+            margin: 0 auto; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 3px solid transparent; transition: 0.3s;
+        }
+        .member.active-parent .img-box { border-color: var(--header-bg); transform: scale(1.05); }
+        .img-box img { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; }
+        
+        .name-tag-container { position: relative; display: inline-flex; align-items: center; margin-top: -12px; z-index: 11; }
+        .name-tag { background: white; padding: 4px 12px; border-radius: 15px; font-size: 10px; font-weight: 700; color: black; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        /* أيقونة المعلومات - أبيض ورصاصي */
+        .info-icon { 
+            background: #ffffff; color: #888888; width: 18px; height: 18px; 
+            border-radius: 50%; font-size: 10px; display: flex; align-items: center; 
+            justify-content: center; margin-right: -7px; cursor: pointer; z-index: 12; 
+            border: 1px solid #cccccc; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        .info-icon:hover { background: #f0f0f0; color: #333; }
+
+        .toggle-icon { font-size: 11px; color: var(--header-bg); margin-top: 5px; display: block; opacity: 0.6; }
+
+        /* Modal النافذة المنبثقة */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 3000; }
+        .modal-content { background: white; width: 85%; max-width: 380px; padding: 25px; border-radius: 15px; text-align: center; position: relative; animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-modal { position: absolute; top: 10px; left: 15px; font-size: 24px; cursor: pointer; color: #999; }
+        .modal-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--header-bg); margin-bottom: 10px; }
+
+        footer { background: white; color: #666; padding: 15px 0; text-align: center; border-top: 1px solid #eee; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="my-top-bar">
+        <div class="user-part">
+            <img src="images/profile.png" alt="الجد">
+            <span>Al-khamis</span>
+            <i class="fa-solid fa-angle-down"></i>
+        </div>
+        <div class="icons-part">
+            <a href="#"><i class="fa-brands fa-snapchat"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+
+    <div class="header-main">
+        <h1>عائلة الخميس</h1>
+    </div>
+
+    <div class="tree-container">
+        <div class="tree">
+            <ul style="display: flex;">
+                <li>
+                    <div class="member">
+                        <div class="img-box" onclick="toggleBranch(this.parentElement)">
+                            <img src="images/profile.png" alt="الجد">
+                        </div>
+                        <div class="name-tag-container">
+                            <div class="info-icon" onclick="openModal('عثمان الخميس (الجد)', '1895', '1980', 'عميد العائلة ومؤسسها، نشأ في بيئة عربية أصيلة.')">i</div>
+                            <div class="name-tag">عثمان الخميس</div>
+                        </div>
+                        <i class="bi bi-chevron-down toggle-icon" onclick="toggleBranch(this.parentElement)"></i>
+                    </div>
+
+                    <ul id="main-generation">
+                        </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img src="https://ui-avatars.com/api/?background=random" class="modal-img">
+            <h3 id="m-name">الاسم</h3>
+            <div style="margin-top: 15px; font-size: 14px; text-align: right;">
+                <p><b>تاريخ الميلاد:</b> <span id="m-birth">--</span></p>
+                <p><b>تاريخ الوفاة:</b> <span id="m-death">--</span></p>
+                <hr>
+                <p><b>النشأة:</b> <br><span id="m-bio">--</span></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>جميع الحقوق محفوظة لدي عائلة الخميس 2026@</footer>
+
+    <script>
+        const ordinals = ["أول", "ثاني", "ثالث", "رابع"];
+
+        // دالة بناء الشجرة (4 أبناء -> 4 أحفاد لكل ابن -> ابن واحد لكل حفيد)
+        function buildTree() {
+            const container = document.getElementById('main-generation');
+            let html = '';
+
+            for (let i = 0; i < 4; i++) {
+                const sonName = `ابن ${ordinals[i]}`;
+                html += `
+                <li>
+                    <div class="member">
+                        <div class="img-box" onclick="toggleBranch(this.parentElement)">
+                            <img src="https://ui-avatars.com/api/?name=${i+1}&background=random">
+                        </div>
+                        <div class="name-tag-container">
+                            <div class="info-icon" onclick="openModal('${sonName}', '1945', 'موجود', 'نشأ في كنف والده وأكمل المسيرة.')">i</div>
+                            <div class="name-tag">${sonName}</div>
+                        </div>
+                        <i class="bi bi-chevron-down toggle-icon" onclick="toggleBranch(this.parentElement)"></i>
+                    </div>
+                    <ul>
+                        ${buildGrandsons(i)}
+                    </ul>
+                </li>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function buildGrandsons(parentIdx) {
+            let gHtml = '';
+            for (let j = 0; j < 4; j++) {
+                const gsName = `حفيد ${ordinals[j]}`;
+                gHtml += `
+                <li>
+                    <div class="member">
+                        <div class="img-box" onclick="toggleBranch(this.parentElement)">
+                            <img src="https://ui-avatars.com/api/?name=G&background=random">
+                        </div>
+                        <div class="name-tag-container">
+                            <div class="info-icon" onclick="openModal('${gsName}', '1975', 'موجود', 'من جيل الأحفاد المتطلع للمستقبل.')">i</div>
+                            <div class="name-tag">${gsName}</div>
+                        </div>
+                        <i class="bi bi-chevron-down toggle-icon" onclick="toggleBranch(this.parentElement)"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="member">
+                                <div class="img-box"><img src="https://ui-avatars.com/api/?name=S&background=random"></div>
+                                <div class="name-tag-container">
+                                    <div class="info-icon" onclick="openModal('ابن الحفيد', '2005', 'موجود', 'أصغر أفراد العائلة حالياً.')">i</div>
+                                    <div class="name-tag">ابن الحفيد</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>`;
+            }
+            return gHtml;
+        }
+
+        // وظائف الفتح والإغلاق
+        function toggleBranch(element) {
+            const nextUl = element.nextElementSibling;
+            if (nextUl && nextUl.tagName === 'UL') {
+                const icon = element.querySelector('.toggle-icon');
+                if (nextUl.classList.contains('show-branch')) {
+                    nextUl.classList.remove('show-branch');
+                    if(icon) icon.className = 'bi bi-chevron-down toggle-icon';
+                } else {
+                    nextUl.classList.add('show-branch');
+                    if(icon) icon.className = 'bi bi-chevron-up toggle-icon';
+                }
+            }
+        }
+
+        // وظائف النافذة المنبثقة
+        function openModal(name, birth, death, bio) {
+            document.getElementById('m-name').innerText = name;
+            document.getElementById('m-birth').innerText = birth;
+            document.getElementById('m-death').innerText = death;
+            document.getElementById('m-bio').innerText = bio;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
+
+        // تفعيل سحب الشاشة بالماوس
+        const slider = document.querySelector('.tree-container');
+        let isDown = false; let startX; let scrollLeft;
+        slider.addEventListener('mousedown', (e) => { isDown = true; slider.style.cursor = 'grabbing'; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
+        slider.addEventListener('mouseleave', () => isDown = false);
+        slider.addEventListener('mouseup', () => isDown = false);
+        slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
+
+        buildTree();
+    </script>
+</body>
+</html>

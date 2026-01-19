@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Tree - register</title>
+    <link rel="stylesheet" href="css/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* الجزء المسؤول عن إلغاء الفراغ الأبيض */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* جعل قسم التسجيل يملأ المساحة الفارغة ليظل الفوتر بالأسفل */
+        .register {
+            flex: 1;
+        }
+        
+        /* تنسيق الفوتر المطلوب باللون الأبيض */
+        footer {
+            background-color: #ffffff; 
+            color: #000000;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #eee; /* خط خفيف جداً لتحديد الفوتر */
+        }
+
+        /* الحفاظ على ستايل القوائم الأصلية */
+        .header-right, .header-left {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="py-3">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-md-6">
+            <ul class="header-right d-flex align-items-center">
+              <li>
+                <a href="#"><img src="images/facebook.png" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="images/youtube.png" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="images/twitter.png" alt="" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="images/snap.png" alt="" /></a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="header-left justify-content-end d-flex align-items-center">
+              <li>
+                <a href="#">
+                  <img src="images/arrow-down.png" alt="" />
+                  Al-khamis
+                  <span> <img src="images/profile.png" alt="profile" /></span>
+                </a>
+              </li>
+              <li class="mx-3">
+                <a href="#">
+                  <img src="images/info-circle.png" alt="info-circle"
+                /></a>
+              </li>
+              <li>
+                <a href="#"
+                  ><img src="images/notification.png" alt="notification"
+                /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="bar py-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 text-center mx-auto">
+            <h3>عائلة الخميس</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="register d-flex align-items-center justify-content-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 mb-3 text-center mx-auto">
+            <div class="hero-content text-white">
+              <h2>مرحبـــــا بكــــم</h2>
+              <p>يرجي تسجيل الدخول لمشاهدة شجرة العائلة</p>
+            </div>
+          </div>
+          <div class="col-md-8 d-flex justify-content-center mx-auto">
+            <form action="">
+              <div>
+                <label for="user">إسم المستخدم</label> <br />
+                <input type="text" id="user" name="username" />
+              </div>
+              <div class="my-4">
+                <label for="pass">كلمة المرور</label> <br />
+                <input type="password" id="pass" name="password" />
+              </div>
+
+              <a href="family.html" class="btn btn-custom text-center">دخول</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">جميع الحقوق محفوظة لدي عائلة الخميس 2026@</p>
+        </div>
+    </footer>
+
+</body>
+</html>
